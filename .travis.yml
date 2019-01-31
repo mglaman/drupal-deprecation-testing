@@ -5,6 +5,7 @@ cache:
   directories:
     - $HOME/.composer/cache/files
     - $HOME/.composer/cache/repo
+    - $TMPDIR/phpstan/cache
 php:
   - 7.2
 
