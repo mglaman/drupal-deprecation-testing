@@ -1,9 +1,9 @@
 parameters:
+	customRulesetUsed: true
 	# Ignore tests
 	excludes_analyse:
 		- *Test.php
 		- *TestBase.php
-	level: 0
 includes:
 	# Add the phpstan-drupal extension
 	- vendor/mglaman/phpstan-drupal/extension.neon
