@@ -1,5 +1,6 @@
 parameters:
 	customRulesetUsed: true
+	reportUnmatchedIgnoredErrors: false
 	# Ignore tests
 	excludes_analyse:
 		- *Test.php
