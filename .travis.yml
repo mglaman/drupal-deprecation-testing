@@ -13,10 +13,15 @@ env:
     - ANALYZE=web/core/includes
     - ANALYZE=web/core/lib/Drupal/Component
     - ANALYZE=web/core/lib/Drupal/Core
+    - ANALYZE=web/core/tests
+    - ANALYZE=web/core/themes
+    - ANALYZE=web/core/profiles
+    - ANALYZE=web/core/modules
 
 before_install:
   - echo 'sendmail_path = /bin/true' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - echo 'memory_limit = -1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - echo "extension = apcu.so" >> ~/.phpenv/versions/$(phpenv version-name)/conf.d/travis.ini
   - phpenv config-rm xdebug.ini
   - composer self-update
   - composer --version
