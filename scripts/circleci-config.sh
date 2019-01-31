@@ -1,0 +1,1 @@
+circleci config process .circleci/config_21.yml > .circleci/config.yml
