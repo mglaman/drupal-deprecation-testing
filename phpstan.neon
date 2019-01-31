@@ -1,0 +1,10 @@
+parameters:
+	# Ignore tests
+	excludes_analyse:
+		- *Test.php
+		- *TestBase.php
+	# PHPStan Level 1
+	level: 1
+includes:
+	# Add the phpstan-drupal extension
+	- vendor/mglaman/phpstan-drupal/extension.neon
