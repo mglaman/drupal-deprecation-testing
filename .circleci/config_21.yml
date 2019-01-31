@@ -1,0 +1,76 @@
+version: 2.1
+defaults: &defaults
+  docker:
+    - image: circleci/php:7.2-cli
+  working_directory: ~/repo
+install_prestissimo: &install_prestissimo
+  name: Hirak
+  command: composer global require "hirak/prestissimo:^0.3"
+restore_cache: &restore_cache
+  keys:
+    - composer-{{ checksum "composer.json" }}
+    - composer-
+save_cache: &save_cache
+  paths:
+    - ./vendor
+    - ~/.composer/cache
+  key: composer-{{ checksum "composer.json" }}
+
+commands:
+  setup_project:
+    steps:
+      - checkout
+      - run: sudo apt-get install -y libpng-dev
+      - run: sudo docker-php-ext-install gd
+      - run: echo 'memory_limit=-1' | sudo tee -a /usr/local/etc/php/php.ini
+      - restore_cache: *restore_cache
+      - run: *install_prestissimo
+      - run: composer install -n --prefer-dist
+      - save_cache: *save_cache
+  do_phpstan:
+    parameters:
+      dir:
+        type: string
+    steps:
+      - run: ./vendor/bin/phpstan analyse << parameters.dir >>
+
+
+jobs:
+  core_includes:
+    <<: *defaults
+    steps:
+      - setup_project
+      - do_phpstan:
+          dir: web/core/includes
+  core_component:
+    <<: *defaults
+    steps:
+      - setup_project
+      - do_phpstan:
+          dir: web/core/lib/Drupal/Component
+  core_core:
+    <<: *defaults
+    steps:
+      - setup_project
+      - do_phpstan:
+          dir: web/core/lib/Drupal/Core
+
+workflows:
+  version: 2
+  phpstan:
+    jobs:
+      - core_includes
+      - core_component
+      - core_core
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - core_includes
+      - core_component
+      - core_core
