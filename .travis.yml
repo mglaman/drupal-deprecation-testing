@@ -11,13 +11,14 @@ php:
 
 env:
   matrix:
-    - ANALYZE=web/core/includes
-    - ANALYZE=web/core/lib/Drupal/Component
-    - ANALYZE=web/core/lib/Drupal/Core
-    - ANALYZE=web/core/tests
-    - ANALYZE=web/core/themes
-    - ANALYZE=web/core/profiles
-    - ANALYZE=web/core/modules
+    - ANALYZE=legacy_includes
+    - ANALYZE=component_namespace
+    - ANALYZE=core_namespace
+    - ANALYZE=tests
+    - ANALYZE=themes
+    - ANALYZE=profiles
+    - ANALYZE=modules_1
+    - ANALYZE=modules_2
 
 before_install:
   - echo 'sendmail_path = /bin/true' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
@@ -29,10 +30,10 @@ before_install:
 
 install:
   - composer global require "hirak/prestissimo:^0.3"
-  - composer install -n --prefer-dist
+  - composer install -n --prefer-dist --no-suggest --optimize-autoloader --apcu-autoloader
 
 script:
-  - ./vendor/bin/phpstan analyse $ANALYZE
+  - ./vendor/bin/phpstan analyse --paths-file ./analyze-paths/$ANALYZE
 
 after_script:
   - echo $(php -r "echo sys_get_temp_dir() . '/phpstan/cache';")
