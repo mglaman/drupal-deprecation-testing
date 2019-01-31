@@ -22,3 +22,6 @@
 
 # Ignore .env files as they are personal
 /.env
+
+# Ignore the composer.lock so CI is always up to date.
+/composer.lock
