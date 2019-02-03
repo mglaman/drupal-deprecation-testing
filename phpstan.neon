@@ -3,8 +3,6 @@ parameters:
 	reportUnmatchedIgnoredErrors: false
 	# Ignore tests
 	excludes_analyse:
-		- *Test.php
-		- *TestBase.php
 		- */tests/Drupal/Tests/Listeners/Legacy/*
 	# Ignore phpstan-drupal extension's rules.
 	ignoreErrors:
