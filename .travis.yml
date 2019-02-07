@@ -36,6 +36,5 @@ install:
 script:
   - ./vendor/bin/phpstan analyse --paths-file ./analyze-paths/$ANALYZE
 
-after_script:
-  - echo $(php -r "echo sys_get_temp_dir() . '/phpstan/cache';")
-  - ls $(php -r "echo sys_get_temp_dir() . '/phpstan/cache';")
+notifications:
+  email: false
