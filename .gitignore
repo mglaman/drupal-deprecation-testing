@@ -25,3 +25,5 @@
 
 # Ignore the composer.lock so CI is always up to date.
 /composer.lock
+
+/drupal-check.phar
