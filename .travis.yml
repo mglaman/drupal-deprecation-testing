@@ -33,7 +33,7 @@ install:
   - composer install -n --prefer-dist --no-suggest --optimize-autoloader --apcu-autoloader
 
 before_script:
-  - curl -O https://github.com/mglaman/drupal-check/releases/download/$DRUPAL_CHECK_VERSION/drupal-check.phar
+  - curl -L -O https://github.com/mglaman/drupal-check/releases/download/$DRUPAL_CHECK_VERSION/drupal-check.phar
   - chmod +x drupal-check.phar
 script:
   - ./drupal-check.phar $ANALYZE
