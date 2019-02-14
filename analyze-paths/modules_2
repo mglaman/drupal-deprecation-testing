@@ -5,10 +5,6 @@ web/core/modules/media
 web/core/modules/media_library
 web/core/modules/menu_link_content
 web/core/modules/menu_ui
-web/core/modules/migrate
-web/core/modules/migrate_drupal
-web/core/modules/migrate_drupal_multilingual
-web/core/modules/migrate_drupal_ui
 web/core/modules/node
 web/core/modules/options
 web/core/modules/page_cache

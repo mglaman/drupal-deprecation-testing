@@ -1,0 +1,4 @@
+web/core/modules/migrate
+web/core/modules/migrate_drupal
+web/core/modules/migrate_drupal_multilingual
+web/core/modules/migrate_drupal_ui

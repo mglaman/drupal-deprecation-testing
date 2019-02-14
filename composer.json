@@ -25,7 +25,6 @@
         "zaporylie/composer-drupal-optimizations": "^1.0"
     },
     "require-dev": {
-        "mglaman/phpstan-drupal-deprecations": "^0.11.0",
         "webflo/drupal-core-require-dev": "8.7.x-dev"
     },
     "conflict": {

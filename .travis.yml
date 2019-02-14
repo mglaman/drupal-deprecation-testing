@@ -20,21 +20,27 @@ env:
     - ANALYZE=modules_1
     - ANALYZE=modules_2
     - ANALYZE=modules_3
+    - ANALYZE=modules_migrate
 
 before_install:
   - echo 'sendmail_path = /bin/true' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - echo 'memory_limit = -1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - echo "extension = apcu.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - phpenv config-rm xdebug.ini
-  - composer self-update
   - composer --version
 
 install:
+  - DRUPAL_CHECK_RELEASE_URL="https://api.github.com/repos/mglaman/drupal-check/releases/latest"
+  - DRUPAL_CHECK_BINARY=$(curl -s ${DRUPAL_CHECK_RELEASE_URL} | grep browser_download_url | cut -d '"' -f 4)
+  - curl -O $DRUPAL_CHECK_BINARY
   - composer global require "hirak/prestissimo:^0.3"
   - composer install -n --prefer-dist --no-suggest --optimize-autoloader --apcu-autoloader
 
 script:
-  - ./vendor/bin/phpstan analyse --paths-file ./analyze-paths/$ANALYZE
+  - |
+    while read p; do
+      drupal-check.phar $p
+    done <./analyze-paths/$ANALYZE
 
 notifications:
   email: false
