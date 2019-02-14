@@ -34,6 +34,7 @@ install:
 
 before_script:
   - curl -O https://github.com/mglaman/drupal-check/releases/download/$DRUPAL_CHECK_VERSION/drupal-check.phar
+  - chmod +x drupal-check.phar
 script:
   - ./drupal-check.phar $ANALYZE
 
