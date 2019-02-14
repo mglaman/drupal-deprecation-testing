@@ -10,6 +10,8 @@ php:
   - 7.2
 
 env:
+  global:
+    - DRUPAL_CHECK_VERSION=1.0.0
   matrix:
     - ANALYZE="web/core/includes"
     - ANALYZE="web/core/lib/Drupal/Component"
@@ -31,7 +33,7 @@ install:
   - composer install -n --prefer-dist --no-suggest --optimize-autoloader --apcu-autoloader
 
 before_script:
-  - ./download-drupal-check.sh
+  - curl -O https://github.com/mglaman/drupal-check/releases/download/$DRUPAL_CHECK_VERSION/drupal-check.phar
 script:
   - drupal-check.phar $ANALYZE
 
